@@ -1,9 +1,6 @@
 package bataille
 
-import Models._
-
-import scala.annotation.tailrec
-import scala.util.Random
+import bataille.Models._
 
 
 class BatailleFermee {
@@ -13,32 +10,13 @@ class BatailleFermee {
   // distribue les cartes aléatoirement
   // joue tous les plis jusqu'à ce qu'un des joueurs a gagné toutes les cartes
   // retourne le joueur qui a gagné
-  def joue(joueurs: Seq[Joueur]): Joueur = {
-    val etatInitial = construitEtatInitial(joueurs)
-    val etatFinal = jouePlisJusquaVictoire(etatInitial)
-    etatFinal.tasParJoueur.keys.head
-  }
-
+  def joue(joueurs: Seq[Joueur]): Joueur = ???
 
   // initialisation
   // ----------------
 
   // distribue les cartes à travers tous les joueurs
-  private def construitEtatInitial(joueurs: Seq[Joueur]): EtatDuJeu = {
-
-    val cartesADistribuerInitial = Carte.all
-    val tasParJoueursInitial = Map.empty[Joueur, Seq[Carte]]
-
-    val nbCartesParJoueur = cartesADistribuerInitial.size / joueurs.size
-
-    val (_, tasParJoueurs) =
-      joueurs.foldLeft((cartesADistribuerInitial, tasParJoueursInitial)) { case ((cartesADistribuer, tasParJoueur), joueur) =>
-        val (tasPourCeJoueur, cartesRestantes) = distribueCartesPourUnJoueur(cartesADistribuer, nbCartesParJoueur)
-        (cartesRestantes, tasParJoueur + (joueur -> tasPourCeJoueur))
-      }
-    EtatDuJeu(tasParJoueurs)
-  }
-
+  private def construitEtatInitial(joueurs: Seq[Joueur]): EtatDuJeu = ???
 
 
 
@@ -47,8 +25,7 @@ class BatailleFermee {
   // - combien il faut en distribuer
   // retourne
   // - (les cartes pour le joueur, les cartes restantes)
-  private def distribueCartesPourUnJoueur(cartesDispo: Seq[Carte], combien: Int): (Seq[Carte], Seq[Carte]) =
-    Random.shuffle(cartesDispo).splitAt(combien)
+  private def distribueCartesPourUnJoueur(cartesDispo: Seq[Carte], combien: Int): (Seq[Carte], Seq[Carte]) = ???
 
 
 
@@ -57,10 +34,7 @@ class BatailleFermee {
   // -----------
 
   // Enchaine les plis jusqu'à ce que l'un des joueurs ait toutes les cartes
-  @tailrec
-  private def jouePlisJusquaVictoire(etatDuJeu: EtatDuJeu): EtatDuJeu =
-    if (etatDuJeu.tasParJoueur.size == 1) etatDuJeu
-    else jouePlisJusquaVictoire(jouePli(etatDuJeu))
+  private def jouePlisJusquaVictoire(etatDuJeu: EtatDuJeu): EtatDuJeu = ???
 
   // Effectue la logique du prochain pli
   // Retourne l'état du jeu tel qu'il doit se trouver à l'issue du pli
@@ -77,53 +51,12 @@ class BatailleFermee {
   // SI IL Y A EGALITE SUR LA MEILLEURE CARTE : ici on va juste dire qu'on annule le pli
   //   et que chaque joueur va juste mélanger son tas
   //
-  private def jouePli(etatDuJeu: EtatDuJeu): EtatDuJeu = {
+  private def jouePli(etatDuJeu: EtatDuJeu): EtatDuJeu = ???
 
-    val joueursParHauteurJouee: Map[Hauteur, Seq[Joueur]] =
-      etatDuJeu.tasParJoueur
-      // prenons la première carte
-      .mapValues(_.head)
-      // groupons par hauteur et "inversons" la map
-      .groupBy(_._2.hauteur)
-      .mapValues(_.keys.toSeq)
-
-    val joueursAvecMeilleureHauteur = joueursParHauteurJouee.maxBy(_._1)._2
-
-    joueursAvecMeilleureHauteur match {
-      case Seq(gagnant) =>
-        // OK on a un gagnant
-        // sortons les cartes jouees des tas
-        val cartesJouees = etatDuJeu.tasParJoueur.values.map(_.head)
-        // reconstruisons les tas finaux
-        EtatDuJeu(
-          tasParJoueur = etatDuJeu.tasParJoueur
-              // virons la carte jouee
-              .mapValues(_.tail)
-              .map {
-                // pour le gagnant, on lui met les cartes jouees à la fin de son tas
-                case (`gagnant`, tas) => (gagnant, tas ++ cartesJouees)
-                case other => other
-              }
-              // Virons les joueurs dont le tas est devenu vide
-              .filter(_._2.nonEmpty)
-        )
-      case _ =>
-        // plusieurs gagnants
-        // on mélange juste les tas
-        EtatDuJeu(
-          tasParJoueur = etatDuJeu.tasParJoueur.mapValues { tas =>
-            Random.shuffle(tas)
-          }
-        )
-    }
-  }
-
-
-  implicit val hauteurOrdering: Ordering[Hauteur] = Ordering.fromLessThan(isHauteurLessThanOther)
+  implicit val hauteurOrdering: Ordering[Hauteur] = ???
 
   // Return true si a est une hauteur strictement plus petite que b
-  private def isHauteurLessThanOther(a: Hauteur, b: Hauteur): Boolean =
-    Hauteur.all.indexOf(a) < Hauteur.all.indexOf(b)
+  private def isHauteurLessThanOther(a: Hauteur, b: Hauteur): Boolean = ???
 
 
 
