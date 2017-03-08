@@ -1,24 +1,17 @@
-
-import bataille.BatailleFermee
-import bataille.Models.Joueur
-
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
 object Main {
 
-  val batailleFermee = new BatailleFermee
+  val api = new Api
 
-
+  //TODO implemente avec les methodes de Api
+  def getTextsOfPostsCommentedByUser(userId: Int): Future[Seq[String]] = ???
 
   def main(args: Array[String]): Unit = {
-    val joueurs = Seq(
-      Joueur("Lulu"),
-      Joueur("Momo"),
-      Joueur("Gégé")
-    )
-
-    val gagnant = batailleFermee.joue(joueurs)
-    println(s"Le gagnant est ${gagnant.nom}")
-
-
+    val texts = Await.result(getTextsOfPostsCommentedByUser(1), 10.seconds)
+    println("Resultats :")
+    texts.foreach(println)
   }
 
 }
