@@ -52,7 +52,7 @@ object Models {
 
   case class Joueur(nom: String)
 
-  case class EtatDuJeu(tasParJoueur: Map[Joueur, Seq[Carte]])
+  case class EtatDuJeu(tasParJoueur: Map[Joueur, Seq[Carte]], nbPlis: Int)
 
 
 }
