@@ -45,7 +45,7 @@ class BatailleFermee {
   // Effectue la logique du prochain pli
   // Retourne l'état du jeu tel qu'il doit se trouver à l'issue du pli
   //
-  // Note : cette méthode par du principe que les joueurs ont tous au moins une carte dans
+  // Note : cette méthode part du principe que les joueurs ont tous au moins une carte dans
   // leur tas
   //
   // Note : cette méthode doit virer les joueurs qui n'ont plus de carte à l'issue du pli
