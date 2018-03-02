@@ -1,4 +1,4 @@
-name := "exercice"
+name := "exo-bataille-fermee"
 
 version := "1.0"
 

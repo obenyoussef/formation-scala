@@ -38,9 +38,11 @@ class BatailleFermee {
 
   // Enchaine les plis jusqu'à ce que l'un des joueurs ait toutes les cartes
   @tailrec
-  private def jouePlisJusquaVictoire(etatDuJeu: EtatDuJeu): EtatDuJeu =
+  private def jouePlisJusquaVictoire(etatDuJeu: EtatDuJeu): EtatDuJeu = {
+    logEtatDuJeu(etatDuJeu)
     if (etatDuJeu.tasParJoueur.size == 1) etatDuJeu
     else jouePlisJusquaVictoire(jouePli(etatDuJeu))
+  }
 
   // Effectue la logique du prochain pli
   // Retourne l'état du jeu tel qu'il doit se trouver à l'issue du pli
@@ -92,6 +94,16 @@ class BatailleFermee {
   // si a est strictement inférieur à b
   private def isLessThanUsingSeq[T](seq: Seq[T], a: T, b: T): Boolean =
     seq.indexOf(a) < seq.indexOf(b)
+
+  // Affiche un résumé de l'état actuel du jeu, pour avoir une idée de où on en est
+  // Exemple de ce qui devrait être affiché :
+  // Gégé: 10 / Lulu: 31 / Momo: 10
+  private def logEtatDuJeu(etatDuJeu: EtatDuJeu): Unit =
+    println {
+      etatDuJeu.tasParJoueur.toSeq.sortBy(_._1.nom).map { case (joueur, tas) =>
+        s"${joueur.nom}: ${tas.size}"
+      }.mkString(" / ")
+    }
 
 
 }

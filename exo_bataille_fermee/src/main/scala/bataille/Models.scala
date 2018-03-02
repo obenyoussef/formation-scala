@@ -23,6 +23,7 @@ object Models {
     case object Neuf extends Hauteur
     case object Dix extends Hauteur
     case object Valet extends Hauteur
+    case object Dame extends Hauteur
     case object Roi extends Hauteur
     case object As extends Hauteur
     val all: Seq[Hauteur] = Seq(
@@ -36,6 +37,7 @@ object Models {
       Neuf,
       Dix,
       Valet,
+      Dame,
       Roi,
       As
     )
