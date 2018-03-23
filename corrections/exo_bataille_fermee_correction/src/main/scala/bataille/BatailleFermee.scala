@@ -1,6 +1,6 @@
 package bataille
 
-import Models._
+import bataille.Models._
 
 import scala.annotation.tailrec
 import scala.util.Random
@@ -80,20 +80,10 @@ class BatailleFermee {
     )
   }
 
-  implicit val hauteurOrdering: Ordering[Hauteur] =
-    Ordering.fromLessThan((a, b) => isLessThanUsingSeq(Hauteur.all, a, b))
-
-  implicit val couleurOrdering: Ordering[Couleur] =
-    Ordering.fromLessThan((a, b) => isLessThanUsingSeq(Couleur.all, a, b))
-
   implicit val carteOrdering: Ordering[Carte] =
-    Ordering.by(carte => (carte.hauteur, carte.couleur))
-
-  // En se basant sur une collection 'seq' qui donne l'ordre de référence,
-  // cette méthode compare deux éléments a et b et retourne true
-  // si a est strictement inférieur à b
-  private def isLessThanUsingSeq[T](seq: Seq[T], a: T, b: T): Boolean =
-    seq.indexOf(a) < seq.indexOf(b)
+    Ordering.by { carte =>
+      (Hauteur.all.indexOf(carte.hauteur), Couleur.all.indexOf(carte.hauteur))
+    }
 
   // Affiche un résumé de l'état actuel du jeu, pour avoir une idée de où on en est
   // Exemple de ce qui devrait être affiché :

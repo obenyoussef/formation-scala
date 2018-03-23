@@ -1,10 +1,6 @@
 package bataille
 
-import Models._
-
-import scala.annotation.tailrec
-import scala.util.Random
-
+import bataille.Models._
 
 class BatailleFermee {
 
@@ -46,21 +42,17 @@ class BatailleFermee {
   //
   private def jouePli(etatDuJeu: EtatDuJeu): EtatDuJeu = ???
 
-  implicit val hauteurOrdering: Ordering[Hauteur] = ???
-
-  implicit val couleurOrdering: Ordering[Couleur] = ???
-
-  implicit val carteOrdering: Ordering[Carte] = ???
-
-  // En se basant sur une collection 'seq' qui donne l'ordre de référence,
-  // cette méthode compare deux éléments a et b et retourne true
-  // si a est strictement inférieur à b
-  private def isLessThanUsingSeq[T](seq: Seq[T], a: T, b: T): Boolean = ???
+  implicit val carteOrdering: Ordering[Carte] =
+    Ordering.by { carte =>
+      (Hauteur.all.indexOf(carte.hauteur), Couleur.all.indexOf(carte.hauteur))
+    }
 
   // Affiche un résumé de l'état actuel du jeu, pour avoir une idée de où on en est
   // Exemple de ce qui devrait être affiché :
   // Gégé: 10 / Lulu: 31 / Momo: 10
   private def logEtatDuJeu(etatDuJeu: EtatDuJeu): Unit = ???
+
+
 
 
 }
