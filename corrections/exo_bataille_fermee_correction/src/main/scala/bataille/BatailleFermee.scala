@@ -82,7 +82,7 @@ class BatailleFermee {
 
   implicit val carteOrdering: Ordering[Carte] =
     Ordering.by { carte =>
-      (Hauteur.all.indexOf(carte.hauteur), Couleur.all.indexOf(carte.hauteur))
+      (Hauteur.all.indexOf(carte.hauteur), Couleur.all.indexOf(carte.couleur))
     }
 
   // Affiche un résumé de l'état actuel du jeu, pour avoir une idée de où on en est
